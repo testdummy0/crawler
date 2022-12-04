@@ -19,14 +19,33 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+      with:
+        repository: 'crusher-dev/web-history'
+
+    - uses: pnpm/action-setup@v2.2.2
+      with:
+        version: 7.5.1
+
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
-        cache: 'yarn'
+        cache: 'pnpm'
+
     - name: Install node modules
-      run: yarn install
+      run: pnpm install
     - name: Install playwright browsers
       run: npx playwright install --with-deps
-    - name: Test
-      run: yarn start
+    - name: Build worker & start
+      run: pnpm build:worker && pnpm worker
+      env:
+        BACKBLAZE_APPLICATION_KEY_ID: ${{ secrets.BACKBLAZE_APPLICATION_KEY_ID }}
+        BACKBLAZE_APPLICATION_KEY: ${{ secrets.BACKBLAZE_APPLICATION_KEY }}
+        BACKBLAZE_BUCKET: ${{ secrets.BACKBLAZE_BUCKET }}
+        BACKBLAZE_BUCKET_NAME: ${{ secrets.BACKBLAZE_BUCKET_NAME }}
+        SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+        SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+        REDIS_USERNAME: ${{ secrets.REDIS_USERNAME }}
+        REDIS_PASSWORD: ${{ secrets.REDIS_PASSWORD }}
+        REDIS_HOST: ${{ secrets.REDIS_HOST }}
+        REDIS_PORT: ${{ secrets.REDIS_PORT }}
