@@ -1,0 +1,8 @@
+{
+  "name": "crawler",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:testdummy0/crawler.git",
+  "author": "Utkarsh Dixit <utkarshdix02@gmail.com>",
+  "license": "MIT"
+}
