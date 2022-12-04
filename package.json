@@ -3,6 +3,12 @@
   "version": "1.0.0",
   "main": "index.js",
   "repository": "git@github.com:testdummy0/crawler.git",
+  "scripts": {
+    "start": "node index.js"
+  },
   "author": "Utkarsh Dixit <utkarshdix02@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "playwright": "^1.28.1"
+  }
 }

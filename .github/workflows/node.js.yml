@@ -23,8 +23,10 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
-        cache: 'npm'
+        cache: 'yarn'
+    - name: Install node modules
+      run: yarn install
     - name: Install playwright browsers
       run: npx playwright install --with-deps
-    - name: Run tests
-      run: npx playwright test
+    - name: Test
+      run: yarn start
