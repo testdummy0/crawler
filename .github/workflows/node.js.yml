@@ -36,6 +36,13 @@ jobs:
       run: pnpm install
     - name: Install playwright browsers
       run: npx playwright install --with-deps
+
+    - name: Install azure cli
+      run: curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+    
+    - name: Login to azure
+      run: az login --service-principal -u ${{ secrets.AZURE_CLIENT_ID }} -p ${{ secrets.AZURE_CLIENT_SECRET }} --tenant ${{ secrets.AZURE_TENANT_ID }}
+    
     - name: Build worker & start
       run: cd packages/backend && pnpm build:worker && pnpm worker
       env:
@@ -49,3 +56,5 @@ jobs:
         REDIS_PASSWORD: ${{ secrets.REDIS_PASSWORD }}
         REDIS_HOST: ${{ secrets.REDIS_HOST }}
         REDIS_PORT: ${{ secrets.REDIS_PORT }}
+        AZURE_ACCOUNT_NAME: crusher
+        AZURE_STORAGE_CONTAINER_NAME: web-history
